@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 
 
@@ -22,7 +21,7 @@ namespace patientBackend1.Models
         public required DateTime Date { get; set; }
 
         [BsonRepresentation(BsonType.String)]
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StatusEnum Status { get; set; } = StatusEnum.Unsold;
         public enum StatusEnum
         {
