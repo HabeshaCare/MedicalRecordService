@@ -20,7 +20,7 @@ namespace patientBackend1.Models
         public required string DoctorId { get; set; }
         public required DateTime Date { get; set; }
 
-        // [BsonRepresentation(BsonType.String)]
+        [BsonRepresentation(BsonType.String)]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public StatusEnum Status { get; set; } = StatusEnum.Unsold;
         public enum StatusEnum
