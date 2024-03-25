@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZQTeFkIL71dnk/1XuGTmM3Lez1dkPs5c0WYzI9bqmXfDZkQYUiewNFn4DebVIveZeiov5i+9B/1lWK8/vhVKPg==",
+  "dgSpecHash": "ShewTaU8Alv/qMx2FcfzJa82QX1lJAyPJ+AmPVBXxcxtTj1pMFxoQetPhwMpyV021AdiaKe0tlDUR3EzCla4lw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj",
+  "projectFilePath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\Final-year-Back-end\\PatientBackend1\\PatientBackend1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nathi\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\nathi\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj": {}
+    "C:\\Users\\nathi\\Desktop\\C#\\Final year\\Final-year-Back-end\\PatientBackend1\\PatientBackend1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj": {
+    "C:\\Users\\nathi\\Desktop\\C#\\Final year\\Final-year-Back-end\\PatientBackend1\\PatientBackend1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj",
+        "projectUniqueName": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\Final-year-Back-end\\PatientBackend1\\PatientBackend1.csproj",
         "projectName": "PatientBackend1",
-        "projectPath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj",
+        "projectPath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\Final-year-Back-end\\PatientBackend1\\PatientBackend1.csproj",
         "packagesPath": "C:\\Users\\nathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\obj\\",
+        "outputPath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\Final-year-Back-end\\PatientBackend1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nathi\\AppData\\Roaming\\NuGet\\NuGet.Config"
