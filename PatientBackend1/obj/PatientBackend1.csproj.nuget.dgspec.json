@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj": {}
+    "/home/yab/Documents/Programming/Projects/Elective_I/Final-year-Back-end/PatientBackend1/PatientBackend1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj": {
+    "/home/yab/Documents/Programming/Projects/Elective_I/Final-year-Back-end/PatientBackend1/PatientBackend1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj",
+        "projectUniqueName": "/home/yab/Documents/Programming/Projects/Elective_I/Final-year-Back-end/PatientBackend1/PatientBackend1.csproj",
         "projectName": "PatientBackend1",
-        "projectPath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\PatientBackend1.csproj",
-        "packagesPath": "C:\\Users\\nathi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nathi\\Desktop\\C#\\Final year\\PatientBackend1\\obj\\",
+        "projectPath": "/home/yab/Documents/Programming/Projects/Elective_I/Final-year-Back-end/PatientBackend1/PatientBackend1.csproj",
+        "packagesPath": "/home/yab/.nuget/packages/",
+        "outputPath": "/home/yab/Documents/Programming/Projects/Elective_I/Final-year-Back-end/PatientBackend1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\nathi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/yab/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "http://api.nuget.org/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.407\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/yab/dotnet/sdk/7.0.406/RuntimeIdentifierGraph.json"
         }
       }
     }
