@@ -15,14 +15,15 @@ namespace patientBackend1.Models
 {
     public class Prescriptions
     {
-        public string id;
-        public string diagnosis;
-        public string medicineName;
-        public string doctorId;
-        public DateTime date;
-        [JsonConverter(typeof(StringEnumConverter))]
+        public string? Id { get; set; }
+        public required string Diagnosis { get; set; }
+        public required string MedicineName { get; set; }
+        public required string DoctorId { get; set; }
+        public required DateTime Date { get; set; }
+
         [BsonRepresentation(BsonType.String)]
-        public StatusEnum status;
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StatusEnum Status { get; set; } = StatusEnum.Unsold;
         public enum StatusEnum
         {
             Sold,
