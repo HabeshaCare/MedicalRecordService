@@ -83,7 +83,7 @@ namespace patientBackend1.Controllers
         }
         // Add Prescriptions
         [HttpPost("post/{medicalRecordId}")] // Assuming this method handles a POST request
-        public async Task<IActionResult> AddPrescription(string medicalRecordId, [FromBody] Prescriptions prescription)
+        public async Task<IActionResult> AddPrescription([FromBody] Prescriptions prescription, string medicalRecordId)
         {
             try
             {
