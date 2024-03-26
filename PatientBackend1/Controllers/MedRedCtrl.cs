@@ -82,7 +82,7 @@ namespace patientBackend1.Controllers
             }
         }
         // Add Prescriptions
-        [HttpPost("post/{medicalRecordId}")] // Assuming this method handles a POST request
+        [HttpPost("post/prescriptions/{medicalRecordId}")]
         public async Task<IActionResult> AddPrescription([FromBody] Prescriptions prescription, string medicalRecordId)
         {
             try
@@ -106,6 +106,90 @@ namespace patientBackend1.Controllers
                 return BadRequest($"Error adding prescription: {ex.Message}");
             }
         }
+
+
+        [HttpPut]
+[Route("api/medicalRecords/{medicalRecordId}/prescriptions/{prescriptionId}")]
+public async Task<IActionResult> UpdatePrescriptionById(string medicalRecordId, string prescriptionId, [FromBody] Prescriptions updatedPrescription)
+{
+  if (!ModelState.IsValid)
+  {
+    return BadRequest(ModelState); // Return bad request if model validation fails
+  }
+
+  try
+  {
+    var isUpdated = await _medRecServices.UpdatePrescriptionById(medicalRecordId, prescriptionId, updatedPrescription);
+
+    if (isUpdated)
+    {
+      return Ok(new { data = updatedPrescription, message = "Prescription status updateded successfully" });; // Return 204 No Content on successful update
+    }
+    else
+    {
+      return NotFound(); // Return 404 Not Found if prescription wasn't updated (e.g., not found)
+    }
+  }
+  catch (Exception ex)
+  {
+    Console.WriteLine($"Error updating prescription: {ex.Message}");
+    return StatusCode(500, "Internal Server Error"); // Return 500 on internal server errors
+  }
+}
+
+
+    [HttpPost("post/Reports/{medicalRecordId}")]
+    public async Task<IActionResult> AddMedicalReport([FromBody] MedicalReport report,string medicalRecordId)
+{
+  try
+  {
+    var reportAdded = await _medRecServices.AddMedicalReport(medicalRecordId, report);
+
+    if (reportAdded)
+    {
+// Fetch the updated medical record with the added MedReports
+                    var updatedMedicalRecord = await GetMedicalRecord(medicalRecordId);  // Assuming you have a GetMedicalRecord method
+
+                    return Ok(new { data = updatedMedicalRecord, message = "Report added successfully" });
+    }
+    else
+    {
+      return BadRequest("Failed to add medical report");
+    }
+  }
+  
+  catch (Exception ex)
+  {
+    return BadRequest($"Error adding medical report: {ex.Message}"); // Provide more details in production
+  }
+}
+
+[HttpPost("post/Tests/{medicalRecordId}")]
+public async Task<IActionResult> AddLabTest([FromBody]  LabTestResult Tests,string medicalRecordId)
+{
+  try
+  {
+    var TestAdded = await _medRecServices.AddLabResults(medicalRecordId, Tests);
+
+    if (TestAdded)
+    {
+// Fetch the updated medical record with the added LabTestResults
+                    var updatedMedicalRecord = await GetMedicalRecord(medicalRecordId);  // Assuming you have a GetMedicalRecord method
+
+                    return Ok(new { data = updatedMedicalRecord, message = "LabTestResul added successfully" });
+    }
+    else
+    {
+      return BadRequest("Failed to add LabTestResuls");
+    }
+  }
+ 
+  catch (Exception ex)
+  {
+    return BadRequest($"Error adding LabTestResuls: {ex.Message}"); // Provide more details in production
+  }
+}
+
 
 
     }

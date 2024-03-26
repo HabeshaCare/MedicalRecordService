@@ -6,6 +6,7 @@ using MongoDB.Driver;
 using patientBackend1.DTOs;
 using patientBackend1.DTOs.MedDTOs;
 using patientBackend1.Models;
+using PatientBackend1.Models;
 using PatientBackend1.utils;
 
 namespace patientBackend1.Services.MedicalServices
@@ -120,7 +121,98 @@ namespace patientBackend1.Services.MedicalServices
 
             }
         }
+
+      public async Task<bool> UpdatePrescriptionById(string medicalRecordId, string prescriptionId, Prescriptions updatedPrescription)
+{
+  try
+  {
+    var filter = Builders<MedicalRecord>.Filter.Eq(mr => mr.id, medicalRecordId) &
+                  Builders<MedicalRecord>.Filter.ElemMatch(mr => mr.Prescribed, r => r.Id == prescriptionId);
+    // Nested filter by medical record ID and prescription ID
+
+    var update = Builders<MedicalRecord>.Update
+      .Set(mr => mr.Prescribed[0].Status, updatedPrescription.Status); // Update specific field (adjust index)
+    //   .Set(mr => mr.Prescribed[0].MedicineName, updatedPrescription.MedicineName) // Update other fields as needed
+    //   .Set(mr => mr.Prescribed[0].Diagnosis, updatedPrescription.Diagnosis); // Update other fields as needed
+     
+
+    var updateResult = await _collection.UpdateOneAsync(filter, update);
+
+    return true;
+  }
+  catch (Exception ex)
+  {
+    // Log the exception for debugging
+    Console.WriteLine($"Error updating prescription: {ex.Message}");
+    throw; // Re-throw the exception for handling in the controller
+  }
+}
+
+
+
+
+
+
+    public async Task<bool> AddMedicalReport(string medicalRecordId, MedicalReport report)
+{
+  try
+  {
+    var medicalRecord = await GetMedicalRecord(medicalRecordId);
+
+    if (medicalRecord == null)
+    {
+      return false; // Indicate unsuccessful update (record not found)
     }
+
+    // Validate MedicalReports data
+   
+
+// adding MedicalReport to a collection for MedicalRecord
+    medicalRecord.Reports.Add(report);
+
+    var updateResult = await _collection.ReplaceOneAsync(
+      filter: Builders<MedicalRecord>.Filter.Eq(mr => mr.id, medicalRecordId),
+      replacement: medicalRecord
+    );
+
+    return true;
+  }
+  catch (Exception ex)
+  {
+    // Log the exception for debugging
+    Console.WriteLine($"Error adding medical report: {ex.Message}");
+    throw; // Re-throw the exception for handling in the controller
+  }
+}
+
+
+public async Task<bool> AddLabResults (string medicalRecordId,LabTestResult Tests){
+    try{
+        var medicalRecord = await GetMedicalRecord(medicalRecordId);
+
+    if (medicalRecord == null)
+    {
+      return false; // Indicate unsuccessful update (record not found)
+    }
+    // adding LabTestResults to a collection for MedicalRecord
+    medicalRecord.Tests.Add(Tests);
+
+    var updateResult = await _collection.ReplaceOneAsync(
+      filter: Builders<MedicalRecord>.Filter.Eq(mr => mr.id, medicalRecordId),
+      replacement: medicalRecord
+    );
+    return true;
+
+    }catch(Exception ex){
+        // Log the exception for debugging
+    Console.WriteLine($"Error adding LabTestResults: {ex.Message}");
+    throw;  
+
+    }
+
+}
+
+  }
 }
 
 

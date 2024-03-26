@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using PatientBackend1.Models;
 
 
 
@@ -22,7 +23,7 @@ namespace patientBackend1.Models
 
         [BsonRepresentation(BsonType.String)]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public StatusEnum Status { get; set; } = StatusEnum.Unsold;
+        public PrescriptionStatus  Status { get; set; } = PrescriptionStatus.Unsold;
         public enum StatusEnum
         {
             Sold,
