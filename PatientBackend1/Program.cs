@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IPatientService, PatientServices>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IMedRecServices,MedRecServices>();
+builder.Services.AddScoped<ISubscription,SubscriptionService>();
 //builder.Services.AddScoped<ChapaApiHelper>();
    
 

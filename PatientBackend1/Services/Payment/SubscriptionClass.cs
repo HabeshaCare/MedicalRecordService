@@ -6,8 +6,9 @@ using patientBackend1.Services.UserServices;
 using PatientBackend1.Models;
 using PatientBackend1.Services.PatientServices;
 using PatientBackend1.utils;
+using Stripe;
 
-public class SubscriptionService:MongoDBService
+public class SubscriptionService:MongoDBService,ISubscription
 
 {
     private readonly List<Package> _availablePackages; // List of available packages (replace with your data access logic)
@@ -135,5 +136,15 @@ public async Task UpdatePatientSubscriptionInSystemAsync(Patient patient)
             Console.WriteLine($"Error calling Chapa API: {ex.Message}");
             return false; // Indicate payment processing failure
         }
+    }
+
+    public Task<bool> SubscribePatientToTelemedicine(int patientId, int packageId, ServiceProviderType desiredType, Patient patient)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool HasActiveTelemedicinePackage(int patientId, ServiceProviderType desiredType)
+    {
+        throw new NotImplementedException();
     }
 }
