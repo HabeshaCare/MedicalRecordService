@@ -13,5 +13,7 @@ namespace PatientBackend1.Models
         public required DateTime? DateOfBirth { get; set; }
         public required int Height { get; set; }
         public required int Weight { get; set; }
+        public required string Location  { get; set; }
+        public Package CurrentPackage { get; set; } = new Package();
     }
 }

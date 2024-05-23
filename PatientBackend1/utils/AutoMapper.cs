@@ -20,6 +20,7 @@ namespace PatientBackend1.utils
             CreateMap<MedicalRecord, MedRecDTO>().ReverseMap();
             
             
+            
         }
     }
 }

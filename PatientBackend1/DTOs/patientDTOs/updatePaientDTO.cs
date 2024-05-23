@@ -12,5 +12,7 @@ namespace patientBackend1.Models.DTOs.UserDTOs
     public DateTime? DateOfBirth { get; set; }
     public int? Height { get; set; }
     public int? Weight { get; set; }
+    public required string Location  { get; set; }
+    public Package CurrentPackage { get; set; } = new Package();
 }
 }

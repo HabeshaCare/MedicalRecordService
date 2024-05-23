@@ -15,6 +15,7 @@ using PatientBackend1.Models;
 
 using patientBackend1.Models.DTOs.UserDTOs;
 using PatientBackend1.Services.PatientServices;
+using System.Collections.ObjectModel;
 
 namespace patientBackend1.Services.UserServices
 {
@@ -100,7 +101,41 @@ namespace patientBackend1.Services.UserServices
             }
 
         }
-}
+       public async Task<bool>UpdatePatientSubscriptionInSystemAsync(Patient patient)
+{
+    // Replace this with your actual asynchronous data access logic using MongoDBService
+    try
+    {
+        var patientCollection = _collection.Find<Patient>("Patients"); // 
+        
+
+        // Find the existing patient document for update
+        var filter = Builders<Patient>.Filter.Eq(p => p.Id, patient.Id);
+        var existingPatient = await _collection.Find(filter).FirstOrDefaultAsync();
+
+        if (existingPatient != null)
+        {
+            // Use AutoMapper to map patient data to a UsagePatientDTO
+            var usagePatientDto = _mapper.Map<UsagePatientDTO>(patient);//patient to UsagePatientDTO
+
+            
+
+            // Update the existing patient document in the database (assuming UsagePatientDTO has relevant data)
+            await _collection.ReplaceOneAsync(filter, patient);; // Update patient document (replace with more granular update if needed)
+              
+    }
+        return true;
+    }
+    catch (Exception ex)
+            {
+                return false;
+            }
+  }
+
+
+
+       
+    }
 }
 
 

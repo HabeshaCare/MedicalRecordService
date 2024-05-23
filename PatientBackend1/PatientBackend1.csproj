@@ -9,7 +9,9 @@
   <ItemGroup>
     <PackageReference Include="automapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Chapa.NET" Version="2.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
+    <PackageReference Include="Stripe.Net" Version="43.21.0" />
     <PackageReference Include="swagger-net" Version="7.0" />
     <PackageReference Include="swashbuckle" Version="5.6.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
