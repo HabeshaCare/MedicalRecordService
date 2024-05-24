@@ -1,11 +1,11 @@
 public class Package
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public int DurationInMonths { get; set; }
-    public SubscriptionStatus Status { get; set; }
-    public ServiceProviderType AllowedProviderType { get; set; } // Allowed service provider type for this package (Normal, Specialist, SubSpecialist)
+    public string Id { get; set; } = string.Empty;
+    // public string Name { get; set; }
+    // public double Price { get; set; }
+    // public int DurationInMonths { get; set; }
+    // public SubscriptionStatus Status { get; set; }
+    public double AmountInBirr { get; set; } // Allowed service provider type for this package (Normal, Specialist, SubSpecialist)
     
 }
 
@@ -18,7 +18,7 @@ public enum SubscriptionStatus
 
 public enum ServiceProviderType
 {
-    Normal = 1,
-    Specialist = 2,
-    SubSpecialist = 4
+    Normal = 100,
+    Specialist = 200,
+    SubSpecialist = 400
 }

@@ -28,11 +28,10 @@ public class SubscriptionController : ControllerBase
         }
 
         try
-        {     var patientIdString = request.PatientId;
-            var (status, message, patientDto) = await _patientService.GetpatientrById(patientIdString);
-            var patient = _mapper.Map<Patient>(patientDto);
-            var successful = await _subscriptionService.SubscribePatientToTelemedicine(
-                request.PatientId, request.PackageId, request.DesiredProviderType,patient);
+        {     
+            // var (status, message, patientDto) = await _patientService.GetpatientrById(patientIdString);
+            // var patient = _mapper.Map<Patient>(patientDto);
+             var successful = await _subscriptionService.SubscribePatientToTelemedicine(request.PatientId, request.AmountInBirr);
 
             if (successful)
             {
@@ -50,17 +49,10 @@ public class SubscriptionController : ControllerBase
         }
     }
 
-    // [HttpGet("active/{patientId}/{providerType}")]
-    // public IActionResult HasActiveTelemedicinePackage(int patientId, ServiceProviderType providerType)
-    // {
-    //     var hasActivePackage = _subscriptionService.HasActiveTelemedicinePackage(patientId, providerType);
-    //     return Ok(hasActivePackage);
-    // }
 }
 
 public class SubscriptionRequest // Model for subscription request
 {
     public string PatientId { get; set; }
-    public string PackageId { get; set; }
-    public ServiceProviderType DesiredProviderType { get; set; }
+    public double AmountInBirr { get; set; }
 }

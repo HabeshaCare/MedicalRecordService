@@ -14,6 +14,7 @@ namespace PatientBackend1.Models
         public required int Height { get; set; }
         public required int Weight { get; set; }
         public required string Location  { get; set; }
-        public Package CurrentPackage { get; set; } = new Package();
+        // public Package CurrentPackage { get; set; } = new Package();
+        public double CurrentBalance { get; set; } = 0.0;
     }
 }

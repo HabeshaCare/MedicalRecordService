@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic;
 using MongoDB.Driver;
@@ -11,31 +12,29 @@ using Stripe;
 public class SubscriptionService:MongoDBService,ISubscription
 
 {
-    private readonly List<Package> _availablePackages; // List of available packages (replace with your data access logic)
+    //private readonly List<Package> _availablePackages; // List of available packages (replace with your data access logic)
     IMongoCollection<Patient> _collection;
     private readonly IPatientService _patientService;
+    private readonly IMapper _mapper;
 
 
-    public SubscriptionService(IOptions<MongoDBSettings> options,List<Package> availablePackages,IPatientService patientService):base(options) // Constructor to inject available packages
+    public SubscriptionService(IOptions<MongoDBSettings> options,IPatientService patientService, IMapper mapper):base(options) // Constructor to inject available packages
     {
-        _availablePackages = availablePackages;
+        
         _collection = GetCollection<Patient>("Patients");
         _patientService = patientService;
+        _mapper = mapper;
     }
 public async Task UpdatePatientSubscriptionInSystemAsync(Patient patient)
 {
     try
     {
         var filter = Builders<Patient>.Filter.Eq(p => p.Id, patient.Id); // Filter to find the patient document
-        var update = Builders<Patient>.Update.Set(p => p.CurrentPackage, patient.CurrentPackage)
-                                            .Set(p => p.CurrentPackage.Status, SubscriptionStatus.Active); // Update package and status
+        var update = Builders<Patient>.Update.Set(p => p.CurrentBalance, patient.CurrentBalance);
+        // .Set(p => p.CurrentBalance.Status, SubscriptionStatus.Active); // Update package and status
 
         var updateResult = await _collection.UpdateOneAsync(filter, update);
 
-        // if (updateResult.IsModifiedCountZero)
-        // {
-        //     Console.WriteLine("Failed to update patient subscription in database.");
-        // }
     }
     catch (Exception ex)
     {
@@ -43,35 +42,25 @@ public async Task UpdatePatientSubscriptionInSystemAsync(Patient patient)
     }
 }
 
-    public async Task<bool> SubscribePatientToTelemedicine(string patientId, string packageId, ServiceProviderType desiredType,Patient patient)
+    public async Task<bool> SubscribePatientToTelemedicine(string patientId, double amountInBirr)
     {
-        //var patient =  await _patientService.GetpatientrById(patientId);
-        var package = _availablePackages.FirstOrDefault(p => p.Id == packageId);
-
-        if ( package == null)
-        {
-            return false;
-        }
-
-        // Validate chosen service provider type against the package
-        if (package.AllowedProviderType != desiredType)
-        {
-            return false;
-        }
+        var (status, message,patientDto) =  await _patientService.GetpatientrById(patientId);
+        var patient = _mapper.Map<Patient>(patientDto);
 
         // Initiate payment transaction
         var transactionRequest = new TransactionRequest
         {
-            Amount = package.Price,
+            Amount = amountInBirr,
             Currency = "ETB",           // ... other transaction details
         };
         var paymentSuccessful = await ProcessPayment(transactionRequest);
 
         if (paymentSuccessful)
         {
+            // var package = new Package() {AmountInBirr = amountInBirr}
             // Update patient's subscription details
-            patient.CurrentPackage = package;
-            patient.CurrentPackage.Status = SubscriptionStatus.Active; // Set package as active
+            patient.CurrentBalance += amountInBirr;
+            // patient.CurrentPackage.Status = SubscriptionStatus.Active; // Set package as active
             await UpdatePatientSubscriptionInSystemAsync(patient); // Update patient info asynchronously
 
             return true;
@@ -83,31 +72,7 @@ public async Task UpdatePatientSubscriptionInSystemAsync(Patient patient)
         }
     }
 
-    // public bool HasActiveTelemedicinePackage(int patientId, ServiceProviderType desiredType,Patient patient)
-    // {
-        
-
-
-        
-    //     if (patient == null || patient.CurrentPackage == null)
-    //     {
-    //         return false;
-    //     }
-
-    //     // Ensure package is active
-    //     if ((patient.CurrentPackage.Status & SubscriptionStatus.Active) == 0)
-    //     {
-    //         return false;
-    //     }
-
-    //     // // Check package expiry
-    //      var isExpired = DateTime.UtcNow >= patient.CurrentPackage.StartDate.AddMonths(patient.CurrentPackage.DurationInMonths);
-
-    //     // // Check if the chosen service provider type is allowed by the package
-    //      return !isExpired && patient.CurrentPackage.AllowedProviderType == desiredType;
-    // }
-
-    public async Task<bool> ProcessPayment(TransactionRequest request)
+        public async Task<bool> ProcessPayment(TransactionRequest request)
     {
         try
         {

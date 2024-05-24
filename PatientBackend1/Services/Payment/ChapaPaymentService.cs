@@ -40,7 +40,7 @@ public class ChapaApiHelper
 
 public class TransactionRequest
 {
-    public decimal Amount { get; set; }
+    public double Amount { get; set; }
     public string Currency { get; set; }
     public string Email { get; set; }
     // Other transaction details as required by Chapa
